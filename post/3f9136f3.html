@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+	<meta name="baidu-site-verification" content="AYKNDVUwL5">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="测试金字塔,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="吴苏苏的苏" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="“测试金字塔”是一个比喻，它告诉我们要把软件测试按照不同粒度来分组。它也告诉我们每个组应该有多少测试。虽然测试金字塔的概念已经存在了一段时间，但一些团队仍然很难正确将它投入实践。本文重新审视“测试金字塔”最初的概念，并展示如何将其付诸实践。本文将告诉你应该在金字塔的不同层次上寻找何种类型的测试，如何实现这些测试。">
+<meta name="keywords" content="测试金字塔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="测试金字塔实战">
+<meta property="og:url" content="http://wusumeng.xyz/post/3f9136f3.html">
+<meta property="og:site_name" content="吴苏苏的苏">
+<meta property="og:description" content="“测试金字塔”是一个比喻，它告诉我们要把软件测试按照不同粒度来分组。它也告诉我们每个组应该有多少测试。虽然测试金字塔的概念已经存在了一段时间，但一些团队仍然很难正确将它投入实践。本文重新审视“测试金字塔”最初的概念，并展示如何将其付诸实践。本文将告诉你应该在金字塔的不同层次上寻找何种类型的测试，如何实现这些测试。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.fangbin.me/susu/blog/1.png">
+<meta property="og:image" content="http://img.fangbin.me/susu/blog/2.png">
+<meta property="og:image" content="http://img.fangbin.me/susu/blog/3.png">
+<meta property="og:image" content="http://img.fangbin.me/susu/blog/4.png">
+<meta property="og:image" content="http://img.fangbin.me/susu/blog/5.png">
+<meta property="og:image" content="http://img.fangbin.me/susu/blog/6.png">
+<meta property="og:image" content="http://img.fangbin.me/susu/blog/7.png">
+<meta property="og:image" content="http://img.fangbin.me/susu/blog/8.png">
+<meta property="og:image" content="http://img.fangbin.me/susu/blog/9.png">
+<meta property="og:image" content="http://img.fangbin.me/susu/blog/10.png">
+<meta property="og:image" content="http://img.fangbin.me/susu/blog/11.png">
+<meta property="og:image" content="http://img.fangbin.me/susu/blog/12.png">
+<meta property="og:image" content="http://img.fangbin.me/susu/blog/13.png">
+<meta property="og:updated_time" content="2019-04-30T12:46:12.678Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="测试金字塔实战">
+<meta name="twitter:description" content="“测试金字塔”是一个比喻，它告诉我们要把软件测试按照不同粒度来分组。它也告诉我们每个组应该有多少测试。虽然测试金字塔的概念已经存在了一段时间，但一些团队仍然很难正确将它投入实践。本文重新审视“测试金字塔”最初的概念，并展示如何将其付诸实践。本文将告诉你应该在金字塔的不同层次上寻找何种类型的测试，如何实现这些测试。">
+<meta name="twitter:image" content="http://img.fangbin.me/susu/blog/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wusumeng.xyz/post/3f9136f3.html">
+
+
+
+
+
+  <title>测试金字塔实战 | 吴苏苏的苏</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fc57cff66ec33424ac5bb7d0ad0c3ca5";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">吴苏苏的苏</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wusumeng.xyz/post/3f9136f3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="吴苏苏">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴苏苏的苏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">测试金字塔实战</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-21T21:10:20+08:00">
+                2019-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/测试理论/" itemprop="url" rel="index">
+                    <span itemprop="name">测试理论</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/测试理论/聊聊测试/" itemprop="url" rel="index">
+                    <span itemprop="name">聊聊测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/post/3f9136f3.html" class="leancloud_visitors" data-flag-title="测试金字塔实战">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+						 <span>℃</span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  18.7k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  66 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>“测试金字塔”是一个比喻，它告诉我们要把软件测试按照不同粒度来分组。它也告诉我们每个组应该有多少测试。虽然测试金字塔的概念已经存在了一段时间，但一些团队仍然很难正确将它投入实践。本文重新审视“测试金字塔”最初的概念，并展示如何将其付诸实践。本文将告诉你应该在金字塔的不同层次上寻找何种类型的测试，如何实现这些测试。<br><a id="more"></a><br><img src="http://img.fangbin.me/susu/blog/1.png" alt="测试金字塔实战"></p>
+<p>准备上生产环境的软件在上生产之前需要进行测试。随着软件开发行业的成熟，软件测试方法也日趋成熟。开发团队正在逐渐自动化大部分的测试，以此取代大量测试人员手工测试。通过自动化测试，开发团队可以分分钟就知道他们的软件是否被破坏，而不是后知后觉几天后才知道。</p>
+<p>自动化测试极大地缩短了反馈周期，这与敏捷开发实践、持续集成、DevOps 文化等是一脉相承的。拥有高效的软件测试方法，可以让你的团队快速而自信地前行。</p>
+<p>本文将探讨一个具备高响应力的、可靠并且可维护的测试组合应该如何构建，这与你具体构建的是一个微服务架构、移动应用程序或者物联网生态系统都无关。此外，我们还将详细介绍如何写出高效且可读的自动化测试。</p>
+<h2 id="测试自动化的重要性"><a href="#测试自动化的重要性" class="headerlink" title="测试自动化的重要性"></a>测试自动化的重要性</h2><p>软件已经成为我们日常生活中的一个重要组成部分。早期它仅仅用于提高企业的效率，但如今它的作用远不止如此。如今许多公司都想方设法成为一流的数字化公司。作为用户，我们每天使用的软件越来越多。创新的车轮正加速向前滚动。</p>
+<p>如果你想跟上时代的步伐，你必须研究如何在不牺牲质量的情况下更快地交付你的软件。持续交付——一种高度自动化的、确保你可以随时将软件发布到生产环境中的实践——正能帮你达到这个目的。它通过构建流水线自动测试你的软件，自动将其部署到测试和生产环境中。</p>
+<p>软件的数量正以前所未有的速度增长，手动进行构建、测试和部署，很快就会变得不可能——除非你想把所有的时间都用来进行手动重复的工作，而不是用来开发可工作的软件。将一切自动化，从构建到测试，从部署到基础架构，这是你唯一的出路。<br><img src="http://img.fangbin.me/susu/blog/2.png" alt="使用构建流水线来自动并可靠地将你的软件部署到生产环境"></p>
+<p>传统的软件测试过于依赖手工操作：首先将应用程序部署到测试环境，然后执行一些黑盒测试，例如，通过点击用户界面来查看一切是否工作如常。通常这些测试将由文档指定，以确保测试人员每次测试的内容是一致的。</p>
+<p>很明显，手动测试所有更改非常耗时、重复而且繁琐。重复很无趣，无趣就容易犯错，这样子还没测到这周工作结束你就会想找下一份工作了。</p>
+<p>幸运的是，重复性劳动还是有药可治的：自动化。</p>
+<p>自动化繁琐重复的测试将给软件开发人员的生活带来重大改变。自动化这些测试后，你就不需要再一味遵循测试文档点点点以确保软件是否仍正常工作。自动化这些测试，你可以充满自信地修改你的代码。如果你曾试过在没有适当自动化测试的情况下进行大规模重构，那你应该知道这种体验多么恐怖。你怎么知道你是否意外地破坏了某些功能呢？显然，你需要将所有的测试用例手动点一遍。不过老实说，你真的享受这个过程吗？你想象一下，如果你对代码做了大规模改动后惬意地喝了一口咖啡，喝完咖啡后就能马上得知你的改动有没有破坏原有功能。这样的开发体验是不是听起来就让人舒服多了？</p>
+<h2 id="测试金字塔"><a href="#测试金字塔" class="headerlink" title="测试金字塔"></a>测试金字塔</h2><p>如果你真的想为你的软件构建自动化测试，你必须知道一个关键的概念：测试金字塔。Mike Cohn 在他的着作《Succeeding with Agile》一书中提出了这个概念。这个比喻非常形象，它让你一眼就知道测试是需要分层的。它还告诉你每一层需要写多少测试。<br><img src="http://img.fangbin.me/susu/blog/3.png" alt="测试金字塔"><br>根据 Mike Cohn 的测试金字塔，你的测试组合应该由以下三层组成（自下往上分别是）：</p>
+<ul>
+<li>单元测试</li>
+<li>服务测试</li>
+<li>用户界面测试<br>不幸的是，如果你仔细思考就会发现，测试金字塔的概念有点太短了。有人认为，Mike Cohn 的测试金字塔里的命名或某些概念不是最理想的。我也同意这一点。从当今的角度来看，测试金字塔似乎过于简单了，因此可能会产生误导。</li>
+</ul>
+<p>然而，由于其简洁性，在建立你自己的测试组合时，测试金字塔本身是一条很好的经验法则。你最好记住 Cohn 测试金字塔中提到的两件事：</p>
+<ul>
+<li>编写不同粒度的测试</li>
+<li>层次越高，你写的测试应该越少</li>
+</ul>
+<p>为了维持金字塔形状，一个健康、快速、可维护的测试组合应该是这样的：写许多小而快的单元测试。适当写一些更粗粒度的测试，写很少高层次的端到端测试。注意不要让你的测试变成冰淇淋那样子，这对维护来说将是一个噩梦，并且跑一遍也需要太多时间。</p>
+<p>不要太拘泥于 Cohn 测试金字塔中各层次的名字。事实上，它们可能相当具有误导性：服务测试是一个难以掌握的术语（Cohn 本人说他观察到很多开发人员完全忽略了这一层）。在单页应用框架（如 react，angular，ember.js 等）的时代，UI 测试显然不必位于金字塔的最高层，你完全能够用这些框架对 UI 进行单元测试。</p>
+<p>考虑到原始名称的缺点，只要在你的代码库和团队讨论中达成一致，你完全可以为测试层次提供其他名称。</p>
+<h2 id="我们用到的工具和库"><a href="#我们用到的工具和库" class="headerlink" title="我们用到的工具和库"></a>我们用到的工具和库</h2><ul>
+<li><a href="https://junit.org/junit5/" target="_blank" rel="noopener">JUnit</a> : 测试执行库</li>
+<li><a href="https://site.mockito.org/" target="_blank" rel="noopener">Mockito</a>: 模拟依赖</li>
+<li><a href="http://wiremock.org/" target="_blank" rel="noopener">Wiremock</a>: 为外部服务打桩</li>
+<li><a href="https://docs.pact.io/" target="_blank" rel="noopener">Pact</a>: 用于编写消费者驱动的契约测试</li>
+<li><a href="https://docs.seleniumhq.org/" target="_blank" rel="noopener">Selenium</a>: 用于编写用户界面驱动的端到端测试</li>
+<li><a href="https://github.com/rest-assured/rest-assured" target="_blank" rel="noopener">REST-assured</a>: 用于编写 REST API 驱动的端到端测试<h2 id="应用例子"><a href="#应用例子" class="headerlink" title="应用例子"></a>应用例子</h2></li>
+</ul>
+<p>我已经写好了一个<a href="https://github.com/hamvocke/spring-testing" target="_blank" rel="noopener">简单的微服务应用</a>，其中涵盖了测试金字塔各种层次的测试。</p>
+<p>示例应用体现了一个典型的微服务的特点。它提供了一个 REST 接口，与数据库进行通信并从第三方 REST 服务中获取信息。它是使用 Spring Boot 实现的，即使你之前从未使用过 Spring Boot，它也简单到应该让你很容易理解。</p>
+<p>请下载 Github 上的代码。Readme 里写了你在计算机上运行应用程序及其自动化测试所需的说明。</p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>应用的功能十分简单。它提供了三个 REST 接口：</p>
+<ul>
+<li>GET /hello 总是返回”Hello World”</li>
+<li>GET /hello/{lastname} 根据 lastname 来查询人，如果查到了结果将返回”Hello {Firstname} {Lastname}”</li>
+<li>GET /weather 返回现在德国汉堡的天气情况<h3 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h3>从高层次来看，这个系统的结构是这样：<br><img src="http://img.fangbin.me/susu/blog/4.png" alt="我们微服务系统的高层架构"><br>我们的微服务提供了一个可以通过 HTTP 调用的 REST 接口。对于某些接口，服务将从数据库获取信息。在其他情况下，服务将通过 HTTP 调用外部<a href="https://darksky.net/forecast/40.7127,-74.0059/us12/en" target="_blank" rel="noopener">天气 API</a>来获取并显示当前天气状况。<h3 id="内部架构"><a href="#内部架构" class="headerlink" title="内部架构"></a>内部架构</h3>在内部，Spring Service 有一个典型的 Spring 架构：<br><img src="http://img.fangbin.me/susu/blog/5.png" alt="我们微服务的内部架构"></li>
+<li>Controller 提供 REST 接口，处理 HTTP 请求和响应</li>
+<li>Repository 和数据库打交道，关注数据在持久化存储里的读写操作</li>
+<li>Client 和别的 API 交互，在我们的应用里它会通过 HTTPS 从 darksky.net 获取天气情况</li>
+<li>Domain 这是我们的领域模型，它包含了领域逻辑（相对来说，在我们的示例中不甚重要）</li>
+</ul>
+<p>有经验的 Spring 开发人员可能会注意到这里缺失了一个常用的层次：受Domain-Driven Design的启发，很多开发人员通常会构建一个由服务类组成的服务层。我决定不在这个应用中包含服务层。原因之一是我们的应用程序很简单，服务层只会成为一个不必要的中间层。另一个是我认为人们过度使用服务层。我经常遇到在服务类中写了全部业务逻辑的代码库。领域模型仅仅成为数据层，而不是行为（贫血域模型）。对于每一个稍有复杂度的应用来说，这浪费了很多让代码保持结构良好且易于测试的优秀方案，并且没能充分利用面向对象的威力。</p>
+<p>我们的 repositories 非常简单，它提供简单的 CRUD 功能。为了保持代码简单，我使用了 Spring Data。 Spring Data 为我们提供了一个简单而通用的 CRUD 实现，我们可以直接使用而不需再造轮子。它还负责为我们的测试启动一个内存数据库，而不是像生产中一样使用真正的 PostgreSQL 数据库。</p>
+<p>看看代码库，熟悉一下内部结构。这将有助于我们的下一步：测试我们的应用！</p>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>单元测试将成为你测试组合的基石。你的单元测试保证了代码库里的某个单元（被测试的主体）能按照预期那样工作。单元测试在你的测试组合里测试的范围是最窄的。它的数量在测试组合中应该远远多于其他类型的测试。<br><img src="http://img.fangbin.me/susu/blog/6.png" alt="一个用测试替身隔绝了外部依赖的典型单元测试"></p>
+<h3 id="什么是单元？"><a href="#什么是单元？" class="headerlink" title="什么是单元？"></a>什么是单元？</h3><p>如果你去问三个人同样的问题：“单元”在单元测试的上下文中意味着什么，你很可能会获得四种非常相似的答案。某种程度上讲，对“单元”的定义取决于你自己，因此这个问题没有标准答案。</p>
+<p>如果你正在使用函数式语言，一个单元最有可能指的是一个函数。你的单元测试将使用不同的参数调用这个函数，并断言它返回了期待的结果。在面向对象语言里，下至一个方法，上至一个类都可以是一个单元（从一个单一的方法到一整个的类都可以是一个单元）。</p>
+<h3 id="社交和独处"><a href="#社交和独处" class="headerlink" title="社交和独处"></a>社交和独处</h3><p>一些人主张，应该将被测试主体下的所有合作者（比如在测试里被你的类调用的其他类）都使用模拟或者桩替换掉，这样可以建立完美的隔离，避免副作用和复杂的测试准备。而有些人主张，只有那些执行起来很慢或者有较大副作用的合作者（比如读写数据库或者发送网络请求的类）才应该被模拟或者打桩替代。</p>
+<p>偶尔有人会把用桩隔离所有依赖的测试称为独居单元测试，把和依赖有交互的测试成为群居单元测试（Jay Fields 的《Working Effectively with Unit Tests》这本书里创造了这些概念）。如果有空你可以继续深究下去，读一读不同思想流派各自的利弊在哪。</p>
+<p>说到底，决定采用群居方式还是独居方式的单元测试其实并不重要。写自动化测试才是重要的。就我自己而言，我发现我自己经常两种方式都用。如果使用真正的合作者很麻烦，我就会用模拟对象或者桩。如果我觉得引用真正的合作者能让我对测试更有信心，我会仅仅打桩替代掉 service 最外层的依赖。</p>
+<h3 id="模拟和打桩"><a href="#模拟和打桩" class="headerlink" title="模拟和打桩"></a>模拟和打桩</h3><p>模拟对象和桩是两种不一样的测试替身（测试替身还不止这两种）。很多人会混用模拟对象和桩这两个概念。我认为，准确的用词会好点，并且最好能将它们各自的特性谙熟于心。你可以使用测试替身来替换掉真实的对象，给它一个可以更方便测试的实现。</p>
+<p>换句话说，这意味着你是用一个假的实现来代替真的那个（例如，一个类，一个模块或者一个函数）。这个假的实现外表和行为和真的很像（都能响应同样的方法调用），只不过真实的响应内容是你在单元测试开始前就定义好的。</p>
+<p>并不是在单元测试时我们才使用测试替身。还有很多精妙的测试替身能以非常可控的方式来模拟整个系统的功能。然而，在单元测试里使用模拟对象和桩的概率会更高（取决于你是喜欢群居风格还是独居风格的开发者），这主要是因为现代语言和库使得构建模拟对象和桩变得更加简单了。</p>
+<p>不管你的技术选型是怎么样的，一般来说，编程语言的标准库或一些比较有名的三方库都会提供一些优雅的方式来帮你构建 mocks。即使需要自己编写 mock 对象，也只是写一个假类/模块/函数的事，只需要让它与真实的合作者有相同的签名，并设置到你的测试中去即可。</p>
+<p>你的单元测试跑起来应该非常快。在一般的机器上跑完数千个单元测试应该只需要几分钟。为了得到快速的单元测试，你应该独立地测试代码库的每一小块，并避免进行真实的数据库操作、文件系统操作，或者发送真实的 HTTP 请求（使用模拟对象和桩来隔离这一部分）。</p>
+<p>一旦你掌握了写单元测试的诀窍，你写起来就能越来越顺畅。打桩隔离掉外部依赖，准备一些输入数据，调用被测试的主体，然后检查返回值是不是你所期待的。看看测试驱动开发，让单元测试指引你的开发；如果使用得当，测试驱动开发将帮你进入一个非常顺畅的工作流，它能帮你创造出一个良好且可维护的设计，顺便还能送你一套全面且自动化的测试。当然，测试驱动开发并不是银弹。但是建议你尝试一下，看看它是否适合你。</p>
+<h3 id="测试什么？"><a href="#测试什么？" class="headerlink" title="测试什么？"></a>测试什么？</h3><p>单元测试有个好处，就是你可以为所有的产品代码类写单元测试，而不需要管它们的功能如何，或者它们在内部结构中属于哪个层次。你可以对 controller 进行单元测试，也可以用同样的方式对 repository、领域类或者文件读写类进行单元测试。良好的开端，从坚持一个实现类就有一个测试类的法则开始。</p>
+<p>一个单元测试类至少应该测试这个类的公共接口。私有方法不能直接测试的原因是你不能从测试类直接调用它们。受保护的和包私有的方法可以被测试类直接调用（如果测试类和生产代码类的包结构是一样的），但是测试这些方法可能就太过了。</p>
+<p>编写单元测试有一条细则：它们应该保证你代码所有的路径都被测试到（包括正常路径和边缘路径）。同时它们不应该和代码的实现有太紧密的耦合。</p>
+<p>为什么这样说呢？</p>
+<p>测试如果与产品代码耦合太紧，很快就会令人讨厌。当你重构代码时（快速回顾一下：重构意味着改变代码的内部结构而不改变其对外的行为）你的单元测试就会挂掉。</p>
+<p>这样的话你就损失了单元测试的一大好处：充当代码变更的保护网。你很快就会厌烦这些愚蠢的测试，而不会感到它能带来好处，因为你每次重构测试就会挂掉，带来更多的工作量。不过说起来这些愚蠢的测试又是谁把它写成这样的呢？</p>
+<p>那么正确的做法是什么？是不要在你的单元测试里耦合实现代码的内部结构。要测试可观测的行为。你应该这样思考：</p>
+<p>如果我的输入是 x 和 y，输出会是 z 吗？</p>
+<p>而不是这样：</p>
+<p>如果我的输入是 x 和 y，那么这个方法会先调用 A 类，然后调用 B 类，接着输出 A 类和 B 类返回值相加的结果吗？</p>
+<p>私有方法应该被视为实现细节。这就是为什么你不应该有去测试他们的冲动。 我经常听单元测试（或者 TDD）的反对者说，编写单元测试是无意义的工作，因为为了获得一个高的测试覆盖率，你必须测试所有的方法。他们经常引用这样的场景：一个过于激昂的团队领导强硬地让他们为 getter、setter 及其他所有琐碎的代码施加测试，以达到 100%的测试覆盖率。</p>
+<p>这就大错特错啦。</p>
+<p>确实你应该测试公共接口。但是更重要的是，不要去测试微不足道的代码。别担心，Kent Beck 说这样是 OK 的。你不会因为测试 getter，setter 抑或是其他简单的实现（比如没有任何条件逻辑的实现）而得到任何价值。把时间省出来，你就能多参加一个会了，万岁！</p>
+<h3 id="测试架构"><a href="#测试架构" class="headerlink" title="测试架构"></a>测试架构</h3><p>一个好的测试结构（不局限于单元测试）是这样的：</p>
+<ol>
+<li>准备测试数据</li>
+<li>调用被测方法</li>
+<li>断言返回的是你期待的结果</li>
+</ol>
+<p>这里有个口诀可以帮你记住这种结构：“Arrange，Act，Assert”。另一个口诀则是从 BDD 获取的灵感。就是“given”，“when”，“then”三件套，given 说的是准备数据，when 指的是调用方法，then 则是断言。</p>
+<p>这种模式也可以应用于其他更高层次的测试。在任何情况下，它们都能让你的测试保持一致，易于阅读。除此之外，使用这种结构写出来的测试，往往更简短，更具表达力。</p>
+<h3 id="实现一个单元测试"><a href="#实现一个单元测试" class="headerlink" title="实现一个单元测试"></a>实现一个单元测试</h3><p>知道了测什么、如何组织单元测试后，我们终于可以看一个真正的例子了。 让我们来看一个简化版的 ExampleController 类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class ExampleController &#123;</span><br><span class="line"></span><br><span class="line">    private final PersonRepository personRepo;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    public ExampleController(final PersonRepository personRepo) &#123;</span><br><span class="line">        this.personRepo = personRepo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @GetMapping(&quot;/hello/&#123;lastName&#125;&quot;)</span><br><span class="line">    public String hello(@PathVariable final String lastName) &#123;</span><br><span class="line">        Optional&lt;Person&gt; foundPerson = personRepo.findByLastName(lastName);</span><br><span class="line"></span><br><span class="line">        return foundPerson</span><br><span class="line">                .map(person -&gt; String.format(&quot;Hello %s %s!&quot;,</span><br><span class="line">                        person.getFirstName(),</span><br><span class="line">                        person.getLastName()))</span><br><span class="line">                .orElse(String.format(&quot;Who is this &apos;%s&apos; you&apos;re talking about?&quot;,</span><br><span class="line">                        lastName));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>一个针对hello(lastname)方法的单元测试可能是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class ExampleControllerTest &#123;</span><br><span class="line"></span><br><span class="line">    private ExampleController subject;</span><br><span class="line"></span><br><span class="line">    @Mock</span><br><span class="line">    private PersonRepository personRepo;</span><br><span class="line"></span><br><span class="line">    @Before</span><br><span class="line">    public void setUp() throws Exception &#123;</span><br><span class="line">        initMocks(this);</span><br><span class="line">        subject = new ExampleController(personRepo);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void shouldReturnFullNameOfAPerson() throws Exception &#123;</span><br><span class="line">        Person peter = new Person(&quot;Peter&quot;, &quot;Pan&quot;);</span><br><span class="line">        given(personRepo.findByLastName(&quot;Pan&quot;))</span><br><span class="line">            .willReturn(Optional.of(peter));</span><br><span class="line"></span><br><span class="line">        String greeting = subject.hello(&quot;Pan&quot;);</span><br><span class="line"></span><br><span class="line">        assertThat(greeting, is(&quot;Hello Peter Pan!&quot;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void shouldTellIfPersonIsUnknown() throws Exception &#123;</span><br><span class="line">        given(personRepo.findByLastName(anyString()))</span><br><span class="line">            .willReturn(Optional.empty());</span><br><span class="line"></span><br><span class="line">        String greeting = subject.hello(&quot;Pan&quot;);</span><br><span class="line"></span><br><span class="line">        assertThat(greeting, is(&quot;Who is this &apos;Pan&apos; you&apos;re talking about?&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们写单元测试用的是JUnit，Java 实际意义上的标准测试框架。我们使用Mockito来打桩隔离掉真正的PersonRepository类。这个桩允许我们在测试里重新定义 PersonRepository 被调用后产生的响应。桩能让我们的测试更简单，更可预测，更容易组织测试数据。</p>
+<p>依照 Arrange，Act，Assert 的结构，我们写了两个单元测试：一个是正常的场景，另一个是找不到搜索人的场景。首先，正常场景创建了一个新的 person 对象，然后告诉 mock 类，当你接受到以“Pan”作为参数的调用时，返回这个 person 对象。这个测试接着调用了被测试方法。最后它断言返回值是等于期待结果的。</p>
+<p>第二个测试和第一个类似，但它测试的是被测方法找不到对应人名时的场景。</p>
+<h2 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h2><p>所有常见的应用都会和一些外部环境做集成（数据库，文件系统，向其他应用发起网络请求）。为了使测试有更好的隔离、运行更快，我们通常不会在编写单元测试时涉及这些外部依赖。不过，这些交互始终是存在的，它们也需要被测试覆盖到。这正是集成测试的用处所在。它们测试的是应用与所有外部依赖的集成。</p>
+<p>对于自动化测试来说，不仅需要运行自己的应用，也需要运行与之集成的组件。如果要测试和数据库的集成，那就需要在跑测试的时候运行数据库。如果要测试能否从硬盘里读取文件，就需要先保存一个文件到硬盘上，然后在集成测试中去读取它。</p>
+<p>前面我提到过「单元测试」是一个模糊的术语，对于集成测试而言，更是如此。对于一些人来讲，集成测试意味着去测试和多方应用产生交互的整个应用。我理解的集成测试更加狭义：每次只测试一个集成点。测试时应使用测试替身来替代其他的外部服务、数据库等。同时，使用契约测试对测试替身和真实实现进行覆盖。这样出来的集成测试更快，更独立，更易理解和调试。</p>
+<p>狭义的集成测试测的是服务的边界。从概念上来说，这样的测试总是在触发导致应用和外部依赖（文件系统，数据库，其他服务等）集成的行为。比如说，一个数据库集成测试可能会这么写：<br><img src="http://img.fangbin.me/susu/blog/7.png" alt="一个集成了你的代码和数据库的集成测试"></p>
+<ol>
+<li>启动数据库</li>
+<li>连接应用到数据库</li>
+<li>调用被测函数，该函数会往数据库写数据</li>
+<li><p>读取数据库，查看期望的数据是不是被写到了数据库里<br>另一个例子，一个通过 REST API 和外部服务集成的测试可能是会这么写:<br><img src="http://img.fangbin.me/susu/blog/8.png" alt="这种集成测试检查了应用是否能正确和外部服务通信"></p>
+</li>
+<li><p>启动应用</p>
+</li>
+<li>启动一个被测外部服务的实例（或者一个具有相同接口的测试替身）</li>
+<li>调用被测函数，该函数会从外部服务的 API 读取数据</li>
+<li>检查应用是否能正确解析返回结果</li>
+</ol>
+<p>与单元测试一样，集成测试也可以写得很白盒。一些框架在应用启动后，仍然支持对应用的一些部分进行 mock。 这使得你可以去检查正确的交互是否发生。</p>
+<p>代码中所有涉及数据序列化和反序列化的地方都要写集成测试。这些场景可能比你想象得更多，比如说：</p>
+<ul>
+<li>调用自身服务的 REST API</li>
+<li>读写数据库</li>
+<li>调用外部服务的 API</li>
+<li>读写队列</li>
+<li>写入文件系统</li>
+</ul>
+<p>为这些边界编写集成测试，保证了对外部系统的数据读写操作是正常工作的。</p>
+<p>编写狭义的集成测试时，你应该尽可能在本地运行外部依赖，如启动一个本地的 MySQL 数据库、针对本地的 ext4 文件系统进行测试等。如果是与外部服务集成，可以在本地运行该服务的实例，或构建一个模拟真实服务的假服务，并在本地运行。</p>
+<p>如果有些三方服务，你没法在本地运行一个实例，那么可以考虑运行一个专用实例，并在集成测试中指向它。避免在自动化测试里集成真实的生产环境的服务。在生产环境上爆出上千个测试请求是个惹人生气的好办法，因为你会扰乱日志（这是最好的情况），最坏的情况是你会对该服务产生 DoS 攻击。透过网络和一个服务集成是广义集成测试的一大特征，这会让你的测试更慢，通常也更难编写。</p>
+<p>在测试金字塔中，集成测试的层级比单元测试更高。集成缓慢的外部依赖（如文件系统或数据库等）通常比隔离了这些依赖的单元测试需要更长时间。他们可能比小型并且独立的单元测试难写，毕竟你需要让外部依赖在你的测试中运行起来。然而，它的优势在于建立了你对应用能正确访问外部依赖的自信，这是单纯的单元测试做不到的。</p>
+<h3 id="数据库集成"><a href="#数据库集成" class="headerlink" title="数据库集成"></a>数据库集成</h3><p>PersonRepository 是代码里唯一的数据库类。它依赖于Spring Data，我们并没有实际去实现它。只需要继承CrudRepository接口并声明一个方法名。剩下的就是 Spring 魔法了，Spring 会帮我们实现其他所有的东西。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface PersonRepository extends CrudRepository&lt;Person, String&gt; &#123;</span><br><span class="line">    Optional&lt;Person&gt; findByLastName(String lastName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于CrudRepository接口，Spring Boot 提供了完整的 CRUD 方法例如findOne, findAll, save, update和delete。我们自定义的方法（findByLastName()）继承了这些基础功能并实现了根据 last name 获取 Persons 对象的功能。Spring Data 会解析方法的返回类型，并按照命名规范解析方法名，从而决定如何实现方法。</p>
+<p>虽然 Spring Data 已经实现了和数据库交互的功能，我还是写了一个数据库集成测试。你可能会反对，认为这是在测试框架，而我们应该避免测试不属于我们开发的代码。然则，我坚信在这里写一个集成测试是至关重要的。首先它测试了我们自定义的 findByLastName 方法实际的行为如我们所愿。次之，它证明了我们的数据库类正确地使用了 Spring 的装配特性，它是能正确连接到数据库的。</p>
+<p>为了让你能更容易在本地把测试运行起来（而不必真的装一个 PostgreSQL 数据库），我们的测试会连接到一个内存H2数据库。</p>
+<p>我已经在build.gradle里定义 H2 作为测试依赖。而测试目录下的application.properties没有定义任何spring.datasource属性。这会告诉 Spring Data 使用内存数据库，它会在 classpath 里找到 H2 来跑我们的测试。</p>
+<p>当你用 int profile 真正启动应用时（例如把SPRING_PROFILES_ACTIVE=int设置到环境变量里），它会连接到application-int.properties里定义的 PostgreSQL 数据库。</p>
+<p>我知道这涉及到了很多 Spring 的知识。你必须仔细阅读许多文档才能理解这个例子。实现代码只有几行，非常直观，但是如果你不知道 Spring 的一些知识点是很难加以理解的。</p>
+<p>除此以外，测试使用内存数据库其实是有风险的。毕竟我们集成测试针对的数据库和我们生产用的数据库不一样。你可以自己选择，是利用 Spring 的强大能力获得简洁的代码，亦或者是写显式但较为冗长的实现。</p>
+<p>解释已经足够多了，这里有一个集成测试的例子。它先保存了一个 Person 对象到数据库里，然后根据 last name 去查找它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringRunner.class)</span><br><span class="line">@DataJpaTest</span><br><span class="line">public class PersonRepositoryIntegrationTest &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private PersonRepository subject;</span><br><span class="line"></span><br><span class="line">    @After</span><br><span class="line">    public void tearDown() throws Exception &#123;</span><br><span class="line">        subject.deleteAll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void shouldSaveAndFetchPerson() throws Exception &#123;</span><br><span class="line">        Person peter = new Person(&quot;Peter&quot;, &quot;Pan&quot;);</span><br><span class="line">        subject.save(peter);</span><br><span class="line"></span><br><span class="line">        Optional&lt;Person&gt; maybePeter = subject.findByLastName(&quot;Pan&quot;);</span><br><span class="line"></span><br><span class="line">        assertThat(maybePeter, is(Optional.of(peter)));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>你可以看到我们的集成测试像单元测试那样遵循了arrange, act, assert的结构。我说过这是一个普适的概念吧。</p>
+<h3 id="和外部服务集成"><a href="#和外部服务集成" class="headerlink" title="和外部服务集成"></a>和外部服务集成</h3><p>我们的微服务会调用darksky.net——一个关于天气的 REST API。当然啦，我们希望保证服务调用时能发送正确的请求，并且能正确地解析响应。</p>
+<p>跑自动化测试时，我们希望避免真实地调用darksky的服务。当然，我们使用的免费版有调用次数限制，这是个原因。但真正的原因是要去耦合。我们的测试应该能独立运行，而不需要管 darsky.net 可爱的开发者们在干些啥。即使我们的机器访问不到darksky服务器，或darksky服务器在进行宕机维护，都不应该使我们的测试挂掉。</p>
+<p>我们可以在集成测试中用自己的假darksky服务器来代替真正的服务器。这听起来像是个巨大的任务。幸亏有像Wiremock这样的工具，事情变得很简单。看这里：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringRunner.class)</span><br><span class="line">@SpringBootTest</span><br><span class="line">public class WeatherClientIntegrationTest &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private WeatherClient subject;</span><br><span class="line"></span><br><span class="line">    @Rule</span><br><span class="line">    public WireMockRule wireMockRule = new WireMockRule(8089);</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void shouldCallWeatherService() throws Exception &#123;</span><br><span class="line">        wireMockRule.stubFor(get(urlPathEqualTo(&quot;/some-test-api-key/53.5511,9.9937&quot;))</span><br><span class="line">                .willReturn(aResponse()</span><br><span class="line">                        .withBody(FileLoader.read(&quot;classpath:weatherApiResponse.json&quot;))</span><br><span class="line">                        .withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)</span><br><span class="line">                        .withStatus(200)));</span><br><span class="line"></span><br><span class="line">        Optional&lt;WeatherResponse&gt; weatherResponse = subject.fetchWeather();</span><br><span class="line"></span><br><span class="line">        Optional&lt;WeatherResponse&gt; expectedResponse = Optional.of(new WeatherResponse(&quot;Rain&quot;));</span><br><span class="line">        assertThat(weatherResponse, is(expectedResponse));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>为了使用 Wiremock，我们在固定的端口(8089)实例化了一个WireMockRule。使用领域特定语言，我们可以配置一个 Wiremock 服务器，定义它需要监听的路径并设置相应的应答。</p>
+<p>接着调用我们要测试的方法——它会调用第三方服务，然后检查结果是否能被正确解析。</p>
+<p>理解测试怎样调用 Wiremock 服务器而不是真正的darksky很重要。秘密就在src/test/resources下的application.properties文件。这是 Spring 在运行测试时会加载的属性文件。出于测试目的——比如，调用一个假的 Wiremock 服务器而不是真实服务器——我们在这个文件里覆写了一些配置，如 API keys 和 URL 等： weather.url = <a href="http://localhost:8089" target="_blank" rel="noopener">http://localhost:8089</a></p>
+<p>值得注意的一点是，这里声明的端口必须和我们在测试里实例化WireMockRule时的端口保持一致。我们之所以能为了测试注入一个假的 API url，是因为我们通过注入的方式将 url 传给了WeatherClient类的构造函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">public WeatherClient(final RestTemplate restTemplate,</span><br><span class="line">                     @Value(&quot;$&#123;weather.url&#125;&quot;) final String weatherServiceUrl,</span><br><span class="line">                     @Value(&quot;$&#123;weather.api_key&#125;&quot;) final String weatherServiceApiKey) &#123;</span><br><span class="line">    this.restTemplate = restTemplate;</span><br><span class="line">    this.weatherServiceUrl = weatherServiceUrl;</span><br><span class="line">    this.weatherServiceApiKey = weatherServiceApiKey;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样我们告诉WeatherClient要把我们定义在 application properties 的weather.url值赋给weatherUrl。</p>
+<p>借助类似 Wiremock 这样的工具，为外部服务编写狭义的集成测试就变得很简单。不幸的是这种方式有个缺点：如何保证我们启动的假服务器与真的服务行为一致？按我们目前的实现，当外部服务改变了它的 API 时，我们的测试依然能跑过。现在我们仅仅测试了WeatherClient可以解析假服务器返回的应答信息。这是个好的开始，但是它非常脆弱。如果使用端到端测试，针对真实服务的实例运行测试，而不使用假的服务，固然能解决这个问题，但这又会让我们对被测服务的可用性产生依赖。幸运的是，针对这个难题还是有更好的方案：针对真实和假的服务运行契约测试。这能保证我们集成测试里用的假服务是个忠实的测试替身。下面来看看这种方案是怎么工作的。</p>
+<h2 id="契约测试"><a href="#契约测试" class="headerlink" title="契约测试"></a>契约测试</h2><p>越来越多现代软件组织发现，对于增长的开发需求，可以让不同的团队来开发同一系统的不同部分。每个团队负责构建独立、松耦合的服务，团队间开发不互相影响。最终再将这些服务集成为一个大而全的系统。最近关于微服务的讨论日益热烈，关注的正是这一点。</p>
+<p>将系统拆分成多个更小的服务，常常意味着这些服务之间需要通过确定的（最好是定义明确的，但有时候会有变动演进）接口通信。</p>
+<p>不同应用间的接口可能形态各异，或基于不同的技术栈。常见的有：</p>
+<p>基于 HTTPS 使用 JSON 交互的 REST 接口<br>基于类似gRPC的 RPC（Remote Procedure Call，远程进程调用）接口<br>使用队列构建的事件驱动架构<br>对于任意一个接口，一定会涉及两个实体：提供方和消费方。提供方为消费方提供数据。消费方处理来自提供方的数据。在 REST 世界里，提供方为所有要暴露的 API 创建一个 REST API；消费方则调用这些 API 来获取数据，或进一步触发其他的服务。而在一个由异步、事件驱动的世界，提供方（通常被称为发布者）发布数据到一个队列中；消费方（通常被称为订阅者）订阅这些队列，读取并处理相关数据。<br><img src="http://img.fangbin.me/susu/blog/9.png" alt="每一个接口都有提供方（或者发布者）和消费方（或者订阅者）实体。接口之间的规范可以视为是一个契约"><br>当你把服务消费方和服务提供方分散到不同的团队去时，你就需要清楚地了解这些服务之间的接口（也就是我们所讲的契约）。传统的公司一般是通过以下的方式解决这个问题：</p>
+<ul>
+<li>写一个钜细靡遗的接口文档（就是契约）</li>
+<li>根据定义好的契约实现提供方服务</li>
+<li>把接口文档扔给隔壁的消费团队</li>
+<li>等到消费方团队实现接口消费部分的工作</li>
+<li>运行一些大型的、手动的系统测试，保证软件能正常工作</li>
+<li>祈祷双方团队永远都维持接口定义不变，不要把事情搞砸</li>
+</ul>
+<p>越来越多现代软件开发团队已经把第五步和第六步用更加自动化的方式来替代：自动化契约测试保证了消费方和提供方实现的时候依然遵循契约。这种测试提供了一个良好的回归测试组合，保证契约的变更能被及早发现。</p>
+<p>在现代敏捷组织，你应该选择效率高浪费少的路子。你们是在同一个公司里构建应用。比起扔出去一个面面俱到的文档，与其他服务的开发者们直接交流本应容易得多。毕竟他们是你的同事，而不是一个只能通过客户支持或合同进行沟通的第三方供应商。</p>
+<p>消费方驱动的契约测试（Consumer-Driven Contract tests，CDC 测试）是让消费方驱动契约实现。使用 CDC，接口消费方会写测试，检查接口是不是返回了他们想要的所有数据。消费方团队会发布这些测试从而让提供方可以轻松获取到这些测试并执行。提供方团队现在可以一边运行 CDC 测试一边开发他们的 API 了。一旦所有测试通过，他们就知道已经实现了所有消费方想要的东西。<br><img src="http://img.fangbin.me/susu/blog/10.png" alt="契约测试保证了提供方和所有的消费方基于同一个定义好的接口契约。用 CDC 测试，消费者就可以通过自动化测试发布他们的需求，提供方则可以持续不断获取这些测试并执行"></p>
+<p>这种方式允许提供方团队只实现必要的东西（让设计保持简约，YAGNI等）。提供方团队需要持续地获取并运行这些 CDC 测试（从他们的构建 Pipeline 里），从而能立即发现任何打破契约的代码变更。如果有代码变更破坏了接口，CDC 测试应该会执行失败，这样可以防止破坏性改动上线。当这些测试保持通过，团队就可以做任何他们想做的改动而不需要担心其他团队。使用消费方驱动测试的话，一般过程会是这样的：</p>
+<ul>
+<li>消费方团队根据他们期待的结果编写自动化测试</li>
+<li>发布自动化测试给提供方团队</li>
+<li>提供方持续不断地运行这些测试，并保持他们都能通过</li>
+<li>如果 CDC 测试挂掉了，则需要双方进行沟通</li>
+<li>如果你的组织正在践行微服务，那么拥有 CDC 测试将是迈向自治团队的一大步。CDC 测试是一种促进团队交流的自动化途径。它们保证了团队间的接口能一直如期工作。如果有 CDC 测试挂掉，则可能是个好的信号，- 意味着你应该走过去到那个被测试影响的团队，了解他们最近是否有 API 变更，弄清楚你们希望如何处理这些变更。</li>
+</ul>
+<p>一个稚嫩的 CDC 测试实现非常简单，比如说你可以对一个 API 发送请求，并断言响应中包含了你需要的所有东西。然后你把这些测试打包成可执行文件（.gem, .jar, .sh），并将它们上传到一个其他团队可以获取到的地方（例如一些诸如Artifactory这样的仓库）。</p>
+<p>在过去几年里，CDC 正变得越来越受欢迎。同时也涌现了一些工具，使得编写及上传 CDC 更加简单。</p>
+<p>在这些工具中，Pact可能是最显眼的一个了。它为编写提供方或消费方的测试提供了详尽的支持，为外部服务隔离提供了开箱即用的（打）桩工具，它还支持你与其他团队交换 CDC 测试。Pact 已经被移植到很多平台上，并且可以和 JVM 语言一起使用，例如 Ruby，.NET，JavaScript 等等。</p>
+<p>如果你想开始编写 CDC 测试但不知道怎么开始，不妨试试 Pact。文档一开始可能会让你应接不暇。保持耐心克服一下。它能帮助你深刻理解 CDC 测试，也会让你更容易在团队合作时推行 CDC。</p>
+<p>消费方驱动契约测试真的可以说是建立自治团队的基石，它让这样的团队充满自信，快速前行。不要掉队，好好读读相关的文档，尝试一下。一套稳固的 CDC 测试集非常宝贵，它让你能快速开发，同时又不会挂掉已有的服务，引起其他团队的不满。</p>
+<h3 id="消费者测试（我方团队）"><a href="#消费者测试（我方团队）" class="headerlink" title="消费者测试（我方团队）"></a>消费者测试（我方团队）</h3><p>上面的例子中，我们的微服务消费了天气 API。所以我们有责任写一个消费方测试来定义我们期望从 API 契约中获得的结果。</p>
+<p>首先，我们要在build.gradle里引入一个库来写基于协议的消费方测试：<br><code>testCompile(&#39;au.com.dius:pact-jvm-consumer-junit_2.11:3.5.5&#39;)</code><br>得益于这个库，我们可以用协议的仿造服务来实现一个消费方测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringRunner.class)</span><br><span class="line">@SpringBootTest</span><br><span class="line">public class WeatherClientConsumerTest &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private WeatherClient weatherClient;</span><br><span class="line"></span><br><span class="line">    @Rule</span><br><span class="line">    public PactProviderRuleMk2 weatherProvider =</span><br><span class="line">            new PactProviderRuleMk2(&quot;weather_provider&quot;, &quot;localhost&quot;, 8089, this);</span><br><span class="line"></span><br><span class="line">    @Pact(consumer=&quot;test_consumer&quot;)</span><br><span class="line">    public RequestResponsePact createPact(PactDslWithProvider builder) throws IOException &#123;</span><br><span class="line">        return builder</span><br><span class="line">                .given(&quot;weather forecast data&quot;)</span><br><span class="line">                .uponReceiving(&quot;a request for a weather request for Hamburg&quot;)</span><br><span class="line">                    .path(&quot;/some-test-api-key/53.5511,9.9937&quot;)</span><br><span class="line">                    .method(&quot;GET&quot;)</span><br><span class="line">                .willRespondWith()</span><br><span class="line">                    .status(200)</span><br><span class="line">                    .body(FileLoader.read(&quot;classpath:weatherApiResponse.json&quot;),</span><br><span class="line">                            ContentType.APPLICATION_JSON)</span><br><span class="line">                .toPact();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    @PactVerification(&quot;weather_provider&quot;)</span><br><span class="line">    public void shouldFetchWeatherInformation() throws Exception &#123;</span><br><span class="line">        Optional&lt;WeatherResponse&gt; weatherResponse = weatherClient.fetchWeather();</span><br><span class="line">        assertThat(weatherResponse.isPresent(), is(true));</span><br><span class="line">        assertThat(weatherResponse.get().getSummary(), is(&quot;Rain&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果观察得仔细，你会发现WeatherClientConsumerTest和WeatherClientIntegrationTest很相似。这次我们用 Pact 取代了 Wiremock 来对服务器打桩。事实上消费方测试工作方式与集成测试完全一致：我们用打桩的方式隔离第三方服务，定义我们期望的响应，然后检查我们的客户端可以正确处理响应。从这个意义上讲，WeatherClientConsumerTest本身就是一个狭义的集成测试。这种方式相比使用 Wiremock 好在，它每次运行都会创建一个协议文件（会生成到target/pacts/&amp;pact-name&gt;.json）。这个协议文件使用特殊的 JSON 格式描述了这个契约的期望结果，它可以被用来验证我们打桩的服务与真实服务行为确实是一致的。我们可以把这个协议文件交给提供 API 的团队，他们可以根据这个文件的期望输出来编写提供方测试。这样的话他们就能测试，他们的 API 是不是满足我们期望的所有结果。</p>
+<p>消费方通过描述他们的期望结果来驱动接口实现，这就是 CDC 里消费方驱动所想要表达的意思。提供方必须保证他们满足了所有期望结果。没有过度设计，保持简洁。 把 Pact 文件交给提供方团队可以有几种方式。一种简单方式就是把它们加入到版本控制系统里，告诉提供方永远拉取最新的文件即可。更先进一点的方式则是用一个文件仓库，类似 Amazon S3 这样的服务或者 pact broker。起步迅速，按需拓展。</p>
+<p>在真实的软件中，你并不需要为一个客户端类既写集成测试又写消费方测试。上面的示例代码同时包含了这两种测试，只是想告诉你这两种测试的写法。如果你想用协议来写 CDC 测试，我推荐你只写消费方测试。两种测试的编写成本是一样的。用协议的方式就有协议文件这个好处，这样把协议文件递交给其他团队，他们就能很容易实现他们的提供方测试。当然这取决于你能说服其他团队也使用协议。如果不行，那么用 Wiremock 来实现集成测试可以作为替代方案。</p>
+<h3 id="提供者测试（其他团队）"><a href="#提供者测试（其他团队）" class="headerlink" title="提供者测试（其他团队）"></a>提供者测试（其他团队）</h3><p>提供方测试必须由提供天气 API 的团队来实现。我们消费的是 darksky.net 提供的一个公共 API。理论上 darksky 团队会实现提供方测试，以保证不打破他们应用和我们的服务之间的契约。</p>
+<p>很明显他们不会关注我们这个简单的示例代码库，也不会为我们实现 CDC 测试。这是公共 API 和组织内微服务的一大不同点。公共 API 不可能考虑到每一个消费方，否则他们就得整天忙于写测试了。而在我们自己组织内，你能够、也应该考虑每个消费方。你的应用一般只会服务于少量的，最多几十个消费方。为这些接口编写提供方测试应该不是太大的问题，这可以保证系统稳定。</p>
+<p>提供方团队拿到协议文件后，会在他们的服务上运行一下。这需要实现一个提供方测试，在测试中读取协议文件，打桩隔离掉一些测试数据，运行他们的服务，并检查是否返回了协议文件中期望的结果。</p>
+<p>Pact 团队写了一些库来实现提供方测试。他们在主GitHub 仓库写了一个很好的概览，告诉你有哪些消费方/提供方测试的库是可用的，你只需要从中选择适用于你技术栈的即可。</p>
+<p>为了简单起见，我们假设 darksky 的 API 也是用 Spring Boot 来实现的。这样的话他们就可以用Spring pact provider来写，这个库和 Spring 的 MockMVC 机制做了很好的适配。我们假想 darksky.net 团队写了提供方测试，那么它大概长这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(RestPactRunner.class)</span><br><span class="line">@Provider(&quot;weather_provider&quot;) // same as the &quot;provider_name&quot; in our clientConsumerTest</span><br><span class="line">@PactFolder(&quot;target/pacts&quot;) // tells pact where to load the pact files from</span><br><span class="line">public class WeatherProviderTest &#123;</span><br><span class="line">    @InjectMocks</span><br><span class="line">    private ForecastController forecastController = new ForecastController();</span><br><span class="line"></span><br><span class="line">    @Mock</span><br><span class="line">    private ForecastService forecastService;</span><br><span class="line"></span><br><span class="line">    @TestTarget</span><br><span class="line">    public final MockMvcTarget target = new MockMvcTarget();</span><br><span class="line"></span><br><span class="line">    @Before</span><br><span class="line">    public void before() &#123;</span><br><span class="line">        initMocks(this);</span><br><span class="line">        target.setControllers(forecastController);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @State(&quot;weather forecast data&quot;) // same as the &quot;given()&quot; in our clientConsumerTest</span><br><span class="line">    public void weatherForecastData() &#123;</span><br><span class="line">        when(forecastService.fetchForecastFor(any(String.class), any(String.class)))</span><br><span class="line">                .thenReturn(weatherForecast(&quot;Rain&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>你可以看到提供方测试必须做的就是两点：加载一个协议文件（例如，用@PactFolder注解来自动加载已下载好的协议文件）、提供需要准备的数据（例如使用 Mockito 来仿造）。此外，不需要再实现额外的测试，它会从协议文件自动派生出来。对于消费方测试里声明的提供方名称（provider name）和状态，提供方测试应该一一匹配。</p>
+<h3 id="提供者测试（我方团队）"><a href="#提供者测试（我方团队）" class="headerlink" title="提供者测试（我方团队）"></a>提供者测试（我方团队）</h3><p>我们已经看了如何测试我们服务和天气提供方之间的契约。对于这个接口，我们的服务扮演的是消费方，天气服务则扮演了提供方。考虑得更远一些，会发现我们的服务同时也是其他系统的提供方：我们为数个路径提供了 REST API 以供其他系统消费。</p>
+<p>我们刚认识到了契约测试什么场景都能用，当然我们也会想给我们的契约写一写契约测试。幸运的是，我们使用了消费方驱动契约，所以我们手里有所有的消费方发过来的协议，可以用它们来实现我们的 REST API 提供方测试。</p>
+<p>先把 pact-jvm-provider 库装上：<br><code>testCompile(&#39;au.com.dius:pact-jvm-provider-spring_2.12:3.5.5&#39;)</code></p>
+<p>提供方测试的实现与前面所述的范式相同。为简单起见，我直接从simple consumer拿来一份协议文件放到了我们的仓库中，这会让我们操作起来简单一些。在真实的项目，你可能需要更完善的机制来分发协议文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(RestPactRunner.class)</span><br><span class="line">@Provider(&quot;person_provider&quot;)// same as in the &quot;provider_name&quot; part in our pact file</span><br><span class="line">@PactFolder(&quot;target/pacts&quot;) // tells pact where to load the pact files from</span><br><span class="line">public class ExampleProviderTest &#123;</span><br><span class="line"></span><br><span class="line">    @Mock</span><br><span class="line">    private PersonRepository personRepository;</span><br><span class="line"></span><br><span class="line">    @Mock</span><br><span class="line">    private WeatherClient weatherClient;</span><br><span class="line"></span><br><span class="line">    private ExampleController exampleController;</span><br><span class="line"></span><br><span class="line">    @TestTarget</span><br><span class="line">    public final MockMvcTarget target = new MockMvcTarget();</span><br><span class="line"></span><br><span class="line">    @Before</span><br><span class="line">    public void before() &#123;</span><br><span class="line">        initMocks(this);</span><br><span class="line">        exampleController = new ExampleController(personRepository, weatherClient);</span><br><span class="line">        target.setControllers(exampleController);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @State(&quot;person data&quot;) // same as the &quot;given()&quot; part in our consumer test</span><br><span class="line">    public void personData() &#123;</span><br><span class="line">        Person peterPan = new Person(&quot;Peter&quot;, &quot;Pan&quot;);</span><br><span class="line">        when(personRepository.findByLastName(&quot;Pan&quot;)).thenReturn(Optional.of</span><br><span class="line">                (peterPan));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>ExampleProviderTest需要做的事只有一件，那就是根据协议文件里的内容提供State信息。当我们运行提供方测试时，Pact 就会用到指定的协议文件，并发送 HTTP 请求到我们的服务，然后根据我们配置的 State 来决定响应。</p>
+<h2 id="UI-测试"><a href="#UI-测试" class="headerlink" title="UI 测试"></a>UI 测试</h2><p>大部分的应用都会有些用户界面。在 web 应用的上下文中，我们所谈的界面就是指网页界面。但人们经常会忘记，除了多彩的网页页面，还有许多的 REST API 界面或命令行界面等。</p>
+<p>UI 测试测的是应用中的用户界面是否如预期工作。比如，用户的输入需要触发正确的动作，数据需要能展示给用户看，UI 的状态需要发生正确变化等。<br><img src="http://img.fangbin.me/susu/blog/11.png" alt><br>有时候，人们提到 UI 测试和端到端测试时（比如 Mike Cohn）说的是一个东西。对我而言，这种观点混淆了这两个有交集的不同概念。</p>
+<p>诚然，端到端的测试通常意味着会测到许多用户界面。但是反过来讲却并不能成立。</p>
+<p>测试用户界面不必非得通过端到端的方式完成。根据技术栈不同，有时测试用户界面也可以很简单，只需要为前端的 JavaScript 代码写一些单元测试，同时用桩将后端隔离开即可。</p>
+<p>对于传统的网页应用，UI 测试可以用Selenium这一类工具完成。如果你把 REST API 也当成一个用户界面，对你的 API 写一些恰当的集成测试可以达到完全相同的目的。</p>
+<p>对于网页界面而言，你的 UI 大概可以围绕这几个部分进行测试：行为，布局，可用性，以及少数人认为需要测试的设计一致性。</p>
+<p>幸运的是，测试用户界面的行为非常简单。点击一下，输入数据，然后看到用户界面状态如实变更。现代的单页应用框架（以react, vue.js, Angular等为代表）通常都会提供一些工具或组件，帮你从很低的测试层级（单元测试）对界面交互进行测试。即便你没有使用任何框架，只使用纯 JavaScript，也有常规的测试工具（如 Jasmine或Mocha等）可供选择。对于更传统一些的服务端渲染应用，使用 Selenium 会是最佳的选择。</p>
+<p>测试应用的布局是否前后一致则有些困难。根据应用类型和用户需求的不同，也许你可能需要确保代码的更改不会意外破坏页面的布局。</p>
+<p>问题是众所周知…计算机在检查某物「看起来是否不错」方面一直表现不佳（也许未来一些好的机器学习算法可以改善这一现状）。</p>
+<p>如果你依然希望在构建流水线中集成自动化的测试来检查应用的设计，还是有些工具可以试一下。大部分的这些工具都是使用 Selenium 帮你在不同浏览器中打开应用、截图、跟之前的截图做对比。如果新旧截图的差异超过了预设阈值，工具就会告诉你。</p>
+<p>Galen就是其中一种工具。即便你有特殊的需求，自己实现一套工具也不是很难。我之前工作过的一些团队就构建了lineup，以及基于 Java 的jlineup，用以实现类似的测试工具。如我前面所说，这两种工具都使用了 Selenium。</p>
+<p>当你想测试可用性或一些「看起来对不对」的东西时，你已经超越了自动化测试的范畴。这是探索性测试，可用性测试（这甚至可以像走廊测试那般简单）的领域。你需要给你的用户展示产品，看看他们是否喜欢使用它，有没有什么功能会让他们在使用时感到困惑或恼火。</p>
+<h2 id="端到端测试"><a href="#端到端测试" class="headerlink" title="端到端测试"></a>端到端测试</h2><p>通过用户界面测试一个已部署好的应用，可以说是最端到端的方式了。前面说的以 webdriver 驱动的 UI 测试就是一个很好的端到端测试案例。<br><img src="http://img.fangbin.me/susu/blog/12.png" alt="端到端测试测试了整个的、完全集成了的系统"><br>端到端测试（也被称为广域栈测试）会赋予你极大的信心，让你了解软件是否正常工作。Selenium和WebDriver 协议使你能够针对部署好的服务进行自动化测试，它能启动一个无头（headless）浏览器来对用户界面执行点击、输入、检查状态的操作。当然你也可以直接使用 Selenium，或者用类似Nightwatch这种基于 Selenium 的工具。</p>
+<p>端到端测试也有它特有的一些问题。众所周知，它们通常比较脆弱，经常因为一些意料之外的问题挂掉。并且这些错误信息通常不是真正的原因所在。用户界面越复杂，测试常常越是脆弱。浏览器差异、时间（时序）问题、元素渲染、意外的弹出框…这还仅是列表一角，已经让我经常花大量时间进行调试，这实在令人沮丧。</p>
+<p>在微服务的世界中，谁负责写这些测试也是一个大问题。因为端到端测试覆盖到数个服务（整个系统），导致编写端到端测试不是任何一个团队的责任。</p>
+<p>如果你们有一个集中的质量保障团队，由他们来编写端到端测试看起来就不错。但是呢，拥有一个集中式的 QA 团队同时也是一种明显的反模式，这根本不应该出现在 DevOps 的世界中。你的团队应该是真正的跨职能团队。回答谁该对端到端测试负责这个问题并不容易。也许你的组织里会有一些社区实践，或有个质量协会之类的机构能为此负责。一个合适的答案，与你的组织本身高度相关。</p>
+<p>此外，端到端测试还需要大量的维护成本，运行起来也相当慢。试想一下这样的场景，除非只有几个微服务，否则你根本没办法在本地运行端到端测试，因为你需要启动所有的服务。祝你的机器能同时跑起几百个应用，并且内存没被撑爆。</p>
+<p>因其高昂的维护成本，你应该尽量将端到端测试的数量减少到最低限度。</p>
+<p>考虑一下应用中对用户而言具有高价值的交互。定义好产品产生核心价值的用户旅程，然后将这些旅程中最重要的步骤变成自动化的端到端测试。</p>
+<p>举例来说，假设你正在构建一个电子商务网站，最具价值的顾客旅程可能是这样的：用户搜索一件商品、将其加入购物车，然后付款。就这么简单。只要这个旅程正常工作，你应该无需过多担心。也许你可以找出一两个重要的用户旅程，并将其用端到端测试来覆盖。但到此为止，再多的测试就会开始带来痛苦了。</p>
+<p>谨记：在测试金字塔里，有很多更低层级的测试，这些测试已经全面测试了各种边缘情况及与其他系统的集成。不需要再在高层级测试里重复测一遍。否则，高维护成本和一堆谎报错误将会降低开发速度，迟早会让你对测试失去信心。</p>
+<h3 id="用户界面端到端测试"><a href="#用户界面端到端测试" class="headerlink" title="用户界面端到端测试"></a>用户界面端到端测试</h3><p>对于端到端测试来说，Selenium和WebDriver协议是大部分开发者的选择。用 Selenium 你可以选一个喜欢的浏览器，它会自动帮你访问网页、触发点击事件、输入一些数据，并检查用户界面的变更。</p>
+<p>Selenium 需要一个浏览器用来运行测试。有几种所谓的驱动（drivers） 可以用来启动不同的浏览器。选一种（或几种）加到build.gradle里。不管选择什么浏览器，都需要保证团队里所有开发者以及 CI 服务器上都安装对应版本的浏览器。保持同步有时相当困难。如果你用的是 Java，有一个轻量级的库叫webdrivermanager，它会自动帮你下载并设置好正确版本的浏览器。把这些依赖加到build.gradle文件里即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testCompile(&apos;org.seleniumhq.selenium:selenium-chrome-driver:2.53.1&apos;)</span><br><span class="line">testCompile(&apos;io.github.bonigarcia:webdrivermanager:1.7.2&apos;)</span><br></pre></td></tr></table></figure>
+<p>为测试运行一个完整的浏览器有时候会是一种麻烦事。尤其对于持续交付跑 Pipeline 的服务器，也许没有时间打开一个包含用户界面的浏览器(例如因为当前没有可用的 X-Server)。变通办法就是使用类似xvfb那样的虚拟 X-Server。(看来得好好了解一下 X-Server 是啥，否则不翻译可能会有问题）</p>
+<p>更先进一点的方案是使用无头浏览器（也就是没有用户界面的浏览器）来运行 webdriver 测试。截至目前PhantomJS依然是做浏览器自动化最好的无头浏览器（译者注：其实现在 PhantomJS 作者已经宣布停止维护了，建议转向使用Puppeteer）。但这之后Chromium和 Firefox双双宣布他们在各自的浏览器里实现了无头模式，这使得 PhantomJS 突然显得有些过时了。比起仅为了你自己作为开发者的方便而使用人工浏览器，使用用户真正使用的浏览器（如 Firefox 和 Chrome）来做测试应该是更好的选择。</p>
+<p>不管是无头 Firefox 还是 Chrome，都是新出的东西，还没有广泛应用到实现 webdriver 测试的场景。这里我们希望简化一些，不去折腾走在时代前沿的浏览器无头模式，而是直接用传统的 Selenium 和一个普通的浏览器。以下是一个简单的端到端测试的例子，它将启动 Chrome、访问我们的服务，并检查页面的内容是否正确：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringRunner.class)</span><br><span class="line">@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)</span><br><span class="line">public class HelloE2ESeleniumTest &#123;</span><br><span class="line"></span><br><span class="line">    private WebDriver driver;</span><br><span class="line"></span><br><span class="line">    @LocalServerPort</span><br><span class="line">    private int port;</span><br><span class="line"></span><br><span class="line">    @BeforeClass</span><br><span class="line">    public static void setUpClass() throws Exception &#123;</span><br><span class="line">        ChromeDriverManager.getInstance().setup();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Before</span><br><span class="line">    public void setUp() throws Exception &#123;</span><br><span class="line">        driver = new ChromeDriver();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @After</span><br><span class="line">    public void tearDown() &#123;</span><br><span class="line">        driver.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void helloPageHasTextHelloWorld() &#123;</span><br><span class="line">        driver.get(String.format(&quot;http://127.0.0.1:%s/hello&quot;, port));</span><br><span class="line"></span><br><span class="line">        assertThat(driver.findElement(By.tagName(&quot;body&quot;)).getText(), containsString(&quot;Hello World!&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个测试只能在你装好 Chrome 的系统里运行起来（本地机器，CI 服务器）。</p>
+<p>这个测试很直观。它用@SpringBootTest在一个随机端口启动了整个 Spring 应用。然后我们实例化了一个 Chrome 的 webdriver，告诉它去访问我们微服务的/hello 路径，然后检查浏览器里是不是打印出了”Hello World!”的字样。看起来很酷哟！</p>
+<h3 id="REST-API-端到端测试"><a href="#REST-API-端到端测试" class="headerlink" title="REST API 端到端测试"></a>REST API 端到端测试</h3><p>在测试应用时，如果能避免涉及图形化的用户界面，将有望写出比完整的端到端测试更健壮的测试，同时依然能覆盖到大部分的应用。这在测试 web 界面异常困难时大有用处。也许你的应用根本没有界面，仅仅是提供了 REST API（比方说你有个单页应用会调用到这个 API，或单纯因为你鄙视一切好用而漂亮的界面）。不管怎么说，有一类皮下测试仅仅测试图形化用户界面背后的东西，但依然能给你带来足够的信心。如果你也像咱的示例代码一样，只是暴露出一个 REST API，那么这种测试方法就非常合适。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class ExampleController &#123;</span><br><span class="line">    private final PersonRepository personRepository;</span><br><span class="line"></span><br><span class="line">    // shortened for clarity</span><br><span class="line"></span><br><span class="line">    @GetMapping(&quot;/hello/&#123;lastName&#125;&quot;)</span><br><span class="line">    public String hello(@PathVariable final String lastName) &#123;</span><br><span class="line">        Optional&lt;Person&gt; foundPerson = personRepository.findByLastName(lastName);</span><br><span class="line"></span><br><span class="line">        return foundPerson</span><br><span class="line">             .map(person -&gt; String.format(&quot;Hello %s %s!&quot;,</span><br><span class="line">                     person.getFirstName(),</span><br><span class="line">                     person.getLastName()))</span><br><span class="line">             .orElse(String.format(&quot;Who is this &apos;%s&apos; you&apos;re talking about?&quot;,</span><br><span class="line">                     lastName));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>有一个库，在测试提供 REST API 的服务时很好用：REST-assured 。它提供了优雅的 DSL，让你可以优雅地向待测 API 发出真实的 HTTP 请求，并检验收到的响应。 第一件事：把这个库加到build.gradle里。<br><code>testCompile(&#39;io.rest-assured:rest-assured:3.0.3&#39;)</code><br>用这个库，我们可以这样实现我们针对 REST API 的端到端测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringRunner.class)</span><br><span class="line">@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)</span><br><span class="line">public class HelloE2ERestTest &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private PersonRepository personRepository;</span><br><span class="line"></span><br><span class="line">    @LocalServerPort</span><br><span class="line">    private int port;</span><br><span class="line"></span><br><span class="line">    @After</span><br><span class="line">    public void tearDown() throws Exception &#123;</span><br><span class="line">        personRepository.deleteAll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void shouldReturnGreeting() throws Exception &#123;</span><br><span class="line">        Person peter = new Person(&quot;Peter&quot;, &quot;Pan&quot;);</span><br><span class="line">        personRepository.save(peter);</span><br><span class="line"></span><br><span class="line">        when()</span><br><span class="line">                .get(String.format(&quot;http://localhost:%s/hello/Pan&quot;, port))</span><br><span class="line">        .then()</span><br><span class="line">                .statusCode(is(200))</span><br><span class="line">                .body(containsString(&quot;Hello Peter Pan!&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里我们还是用@SpringBootTest启动了一个完整的 Spring 应用。我们@Autowire了一个PersonRepository，以便能很容易将测试数据写到数据库里。现在当我们发送了 API 请求，对 Pan 先生打招呼说 hello 时，我们将会收到一个友好的打招呼响应（Hello Peter Pan!）。神奇吧！如果你的应用没有用户界面，那么这个端到端测试就已绰绰有余了。</p>
+<h2 id="验收测试-–-你的功能工作正常吗"><a href="#验收测试-–-你的功能工作正常吗" class="headerlink" title="验收测试 – 你的功能工作正常吗?"></a>验收测试 – 你的功能工作正常吗?</h2><p>测试金字塔越往上，越有可能需要从用户的角度来测试你所构建的功能是否能正常工作。你可以将应用视为黑盒，然后把测试关注点从这样的方式：</p>
+<p>当我输入的值是 x 和 y 时，返回值应该是 z</p>
+<p>转变为：</p>
+<p>Given：在用户已经登陆</p>
+<p>并且有一篇名为“bicycle”的文章的情况下</p>
+<p>When：当用户进入了“bicycle”这篇文章的详情页面</p>
+<p>并点击“添加到购物篮”按钮</p>
+<p>Then：那么“bicycle”这篇文章应该出现在用户的购物车里</p>
+<p>对于这样的测试，有时候你会听到像功能性测试或者验收测试这样的说法。偶尔会有人跟你说功能性和验收测试不是一回事。有时这些说法却又是一回事。人们可能对这些说法和定义陷入无尽的争论。这样的讨论经常会导致更多的混乱。</p>
+<p>我认为是这样的：无论如何，你总会需要从用户的角度而非仅仅从技术角度来测试软件是否正常工作。你怎么称呼这种测试并不是太重要，写测试本身才重要。称呼随便挑一个，保持后续术语一致，然后就开始编写这些测试吧。</p>
+<p>人们时常提及 BDD 及一些相关的工具，它们可以用 BDD 风格来编写这类测试。BDD 或者 BDD 风格写出来的测试较易将你的思维从实现细节转向关注用户需求。你完全可以试一试。</p>
+<p>你甚至不必要采用已经十分成熟的 BDD 工具，例如Cucumber（虽然你也可以用）。有些断言库（如chai.js）也支持你使用should-风格的断言，这可以使你的测试读起来更 BDD 一些。即便你不用这样的库，精心组织一下代码也可以使测试专注在用户行为上。一些小巧的 helper 方法/函数就能让你做到这一点：</p>
+<h5 id="一个用Python写的验收测试示例"><a href="#一个用Python写的验收测试示例" class="headerlink" title="一个用Python写的验收测试示例"></a>一个用Python写的验收测试示例</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def test_add_to_basket():</span><br><span class="line">    # given</span><br><span class="line">    user = a_user_with_empty_basket()</span><br><span class="line">    user.login()</span><br><span class="line">    bicycle = article(name=&quot;bicycle&quot;, price=100)</span><br><span class="line"></span><br><span class="line">    # when</span><br><span class="line">    article_page.add_to_.basket(bicycle)</span><br><span class="line"></span><br><span class="line">    # then</span><br><span class="line">    assert user.basket.contains(bicycle)</span><br></pre></td></tr></table></figure>
+<p>验收测试可以有不同粒度的层次。大部分时候它们所处的测试级别都比较高，一般是直接从用户界面上测试服务。不过从技术上讲，验收测试不必总是写在测试金字塔的最高层。如果你的应用设计和场景允许你在低层级写验收测试，那就这样做。把它写成低层级测试要比写成高层级测试好。验收测试的概念——证明在用户视角看来，应用是正常工作的——是和测试金字塔完全契合的。</p>
+<h2 id="探索测试"><a href="#探索测试" class="headerlink" title="探索测试"></a>探索测试</h2><p>即便是最详尽的自动化测试，它也不是十全十美的。有时你总会在自动化测试里漏掉一些边缘情况。偶尔会出现一些难以单靠单元测试检测出来的 bug。某些质量问题甚至很难从自动化测试的视角被发现（诸如设计和可用性等）。即使对自动化测试抱着崇高的期望，一定程度的手工测试也是不可避免的。<br><img src="http://img.fangbin.me/susu/blog/13.png" alt="使用探索性测试揪出构建流水线上没能发现的问题"><br>把探索性测试纳入测试组合里。它是这样一种手工测试法：给予测试者自由，依赖他们的创造性来发现系统中的质量问题。定期花点时间，撸起袖子，试着对你的应用做些破坏性的操作，使其不能正常工作。开动你的破坏性思维，想方设法制造一些问题和错误。然后记录下你发现的所有东西，以供分析。其中要特别留意那些 bug、设计问题、很长的响应时间、缺失或有误导性的错误信息等一切会让作为用户的你感到恼怒的东西。</p>
+<p>好消息是，一般你发现的大部分问题都能写自动化测试来覆盖。写自动化测试来覆盖发现的这些 bug，有助于日后的回归测试中不会再重现同样的错误。并且，它能帮你在修复 bug 时，缩小 bug 产生根因的排查范围。</p>
+<p>做探索性测试时，你可能会发现一些问题，但它们被构建流水线放过了。不用沮丧，这是关于流水线成熟度的绝佳反馈。收到反馈后，请采取必要的行动：思考一下，做点什么才能避免此类问题以后再次发生。也许是缺失了某一类自动化测试。也许是这个迭代的自动化测试做得马马虎虎，需要测试得更为透彻。也许有好用的新工具或方案可以让你的流水线日后避开这类问题。总之，采取行动是必要的，这样你的流水线，你整个的软件交付将变得越来越成熟。</p>
+<h2 id="测试术语的困惑"><a href="#测试术语的困惑" class="headerlink" title="测试术语的困惑"></a>测试术语的困惑</h2><p>讨论测试的不同分类总是十分困难。当我在讲单元测试的时候，可能与你理解的那个单元测试有些许差异；对于集成测试而言，可能差异会更大。一些人觉得，集成测试的覆盖面非常广，能测试到整个系统中的很多方面。对我而言它的范围则小得多，每个集成测试应仅仅测试一个与之集成的外部系统。有些人称这为集成测试，有些人则更喜欢称它们为组件测试，还有些人喜欢称为服务测试。很多人会争辩说，这三个术语是完全不同的东西。这里并无绝对的对与错。软件开发社区至今也没法给出关于测试术语的明确定义。</p>
+<p>术语含义本身有模糊性，不必孜孜不倦于其中。叫端到端测试也好，广域栈测试也罢，功能性测试也行，都没问题。你认为的集成测试，可能和其他公司的人的认知也不同，这也没问题。当然，如果业界能有一些定义明确的术语并统一语言，那是再好不过了。可惜的是这件事尚未发生。而且在编写测试时会有很多细微差别，它们的范围更像是互相重叠而不是互相离散的，这使得保持术语的一致性更为艰难。</p>
+<p>找到适合你和你团队的术语，这就足够了。清晰理解不同类别测试的区别。团队要在测试命名上保持统一，要为每一类测试划分清晰的范围。只要能在团队内部达成一致（或甚至能上升到组织内部一致），你真的不需要关心别的事情了。Simon Stewart在谈到他们在 Google 里的做法时有很好的总结。这篇文章完美展示了，为什么过于纠结名称和命名习惯本身不太值得。</p>
+<h2 id="把测试放到部署流水线"><a href="#把测试放到部署流水线" class="headerlink" title="把测试放到部署流水线"></a>把测试放到部署流水线</h2><p>如果你正在践行持续集成或者持续交付的实践，那么你会有一条部署流水线来在每一次提交改动时运行自动化测试。通常这个流水线会被分成几个阶段，它们会逐步建立起让你把软件部署到生产环境的自信。听了这么多不同类型的测试，你可能想进一步了解它们在部署流水线中应如何放置。要回答这个答案，你需要思考一下持续交付（实际上是极限编程和敏捷软件开发的核心价值观之一）的其中一项核心价值观：快速反馈。</p>
+<h2 id="避免测试重复"><a href="#避免测试重复" class="headerlink" title="避免测试重复"></a>避免测试重复</h2><p>现在你已经理解了为何你需要为软件编写不同类型的测试，但是这还有一个陷阱你需要避开：金字塔不同层级进行了重复测试。虽然你本能会说测试太多没啥问题，但我向你保证，会有问题。测试组合中每一个测试都有一定的成本，它们不是免费的。编写和维护测试都要花费时间。阅读和理解其他人写的测试也要花时间。当然，运行这些测试也要费时间。</p>
+<p>对于产品代码，你应该力争简洁，杜绝重复。在实现测试金字塔时，你也应该牢记这两条基本法则：</p>
+<ol>
+<li>如果一个更高层级的测试发现了一个错误，并且底层测试全都通过了，那么你应该写一个低层级测试去覆盖这个错误</li>
+<li>竭尽所能把测试往金字塔下层赶</li>
+</ol>
+<p>第一条法则很重要，这是因为低层级测试让你更容易缩小错误的范围，并且隔离掉大部分上下文把错误重现。在调试手头上的问题时，低层级测试运行起来更快，没有太多冗余的东西。同时它们也是很好的回归测试。第二条法则很重要，它能保持测试组合快速运行。如果你已经在低层级测试里覆盖了所有情况，那么再维护一个高层级的测试就没有必要了。因为这并不能给你就软件的正常工作带来更多的信心。如果有许多无效的测试，它也会让你的日常工作很恼火。测试组合会因此拖慢节奏，当你改变代码行为时就需要改更多的测试。</p>
+<p>或者让我们这样总结一下：如果写一个更高层级测试能给你带来更多的信心，那就写高层的测试。给一个 Controller 类写单元测试可以测试它内部的逻辑。不过它还是没法告诉你这个 Controller 提供的 REST 路径是否能真正响应 HTTP 请求。那你可以上移一下测试层级，多写一个测试来测试这个点——就测这个点，不能更多了。你不需要再测试所有的条件分支和边缘场景，因为低层级测试已经覆盖到了。保证高层级测试仅仅关注低层级测试覆盖不到的地方。</p>
+<p>我对于失去了价值的测试很严格，必须消灭掉它们。我会删掉已经被低层级测试覆盖完全的高层级测试（考虑到它们不会再提供额外的价值了）。我尽可能用低层级测试取代高层级测试。有时候，这会有些困难，尤其是你知道设计测试本身就很艰难。警惕沉没成本的思维陷阱，果断摁下删除键。没有理由在不再提供价值的测试上浪费宝贵时间。</p>
+<h2 id="整洁测试代码"><a href="#整洁测试代码" class="headerlink" title="整洁测试代码"></a>整洁测试代码</h2><p>和写代码一样，良好整洁的测试代码同样需要悉心照料。在你于自动化测试之路上继续前进之前，我有些写好可维护测试代码的窍门想告诉你：</p>
+<ol>
+<li>测试代码跟生产代码一样重要。要对它们赋予同等的关注和照顾。“这只是测试代码”不能成为你写出邋遢代码的借口</li>
+<li>一个测试只测试一个分支。这能帮你的测试保持短小，容易理解</li>
+<li>“arrange, act, assert”或者“given, when, then”等口诀有助于你写结构良好的测试</li>
+<li>可读性很重要。不要过于追求 DRY。如果能提高可读性，重复有时候也是可以接受的。尝试在DRY 和 DAMP之间寻找好平衡</li>
+<li>如果对于重复有疑惑，试试用Rule of Three法则来决定是不是要重构。重构之前先试用一下<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2>好了！我知道这是一篇非常漫长并且艰深的文章，它解释了为什么我们需要测试，以及如何对软件进行测试的问题。好消息是，这篇文章提供的信息经得起时间推敲，无论你在构建什么样的软件都能适用。不管你是工作在一个微服务项目上，还是 IoT 设备上，抑或是手机应用或者网页应用，这篇文章提供的观点应该都有章可寻。</li>
+</ol>
+<p>我希望这篇文章能对你有些帮助。有兴趣你可以去示例代码看看，把这里介绍的一些概念纳入到你的测试组合中。想拥有一套稳固的测试组合确实需要付出努力。但长远来看，它们是会给你回报的，它们会给作为开发者的你带来更多清净。相信我。</p>
+<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p>感谢 Clare Sudbery, Chris Ford, Martha Rohte, Andrew Jones-Weiss David Swallow, Aiko Klostermann, Bastian Stein, Sebastian Roidl 及 Birgitta Böckeler 为本文的早期手稿提供反馈和建议。感谢 Martin Fowler 的建议，洞见和支持。</p>
+<p>原文链接：<a href="https://insights.thoughtworks.cn/practical-test-pyramid/" target="_blank" rel="noopener">https://insights.thoughtworks.cn/practical-test-pyramid/</a></p>
+
+      
+    </div>
+		<div>
+			
+				<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+			
+		</div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/测试金字塔/" <i class="fa fa-tag"> 测试金字塔</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/a3626f1a.html" rel="next" title="测试人员技能树">
+                <i class="fa fa-chevron-left"></i> 测试人员技能树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mzk5OS8yMDUzNQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="吴苏苏">
+            
+              <p class="site-author-name" itemprop="name">吴苏苏</p>
+              <p class="site-description motion-element" itemprop="description">你是人间四月天</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wsumeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/2624470167" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.fangbin.me" title="特立独行的猫" target="_blank">特立独行的猫</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#测试自动化的重要性"><span class="nav-number">1.</span> <span class="nav-text">测试自动化的重要性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试金字塔"><span class="nav-number">2.</span> <span class="nav-text">测试金字塔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我们用到的工具和库"><span class="nav-number">3.</span> <span class="nav-text">我们用到的工具和库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用例子"><span class="nav-number">4.</span> <span class="nav-text">应用例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#功能"><span class="nav-number">4.1.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整体架构"><span class="nav-number">4.2.</span> <span class="nav-text">整体架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部架构"><span class="nav-number">4.3.</span> <span class="nav-text">内部架构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单元测试"><span class="nav-number">5.</span> <span class="nav-text">单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是单元？"><span class="nav-number">5.1.</span> <span class="nav-text">什么是单元？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#社交和独处"><span class="nav-number">5.2.</span> <span class="nav-text">社交和独处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模拟和打桩"><span class="nav-number">5.3.</span> <span class="nav-text">模拟和打桩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试什么？"><span class="nav-number">5.4.</span> <span class="nav-text">测试什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试架构"><span class="nav-number">5.5.</span> <span class="nav-text">测试架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现一个单元测试"><span class="nav-number">5.6.</span> <span class="nav-text">实现一个单元测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集成测试"><span class="nav-number">6.</span> <span class="nav-text">集成测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库集成"><span class="nav-number">6.1.</span> <span class="nav-text">数据库集成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#和外部服务集成"><span class="nav-number">6.2.</span> <span class="nav-text">和外部服务集成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#契约测试"><span class="nav-number">7.</span> <span class="nav-text">契约测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#消费者测试（我方团队）"><span class="nav-number">7.1.</span> <span class="nav-text">消费者测试（我方团队）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提供者测试（其他团队）"><span class="nav-number">7.2.</span> <span class="nav-text">提供者测试（其他团队）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提供者测试（我方团队）"><span class="nav-number">7.3.</span> <span class="nav-text">提供者测试（我方团队）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI-测试"><span class="nav-number">8.</span> <span class="nav-text">UI 测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端到端测试"><span class="nav-number">9.</span> <span class="nav-text">端到端测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户界面端到端测试"><span class="nav-number">9.1.</span> <span class="nav-text">用户界面端到端测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#REST-API-端到端测试"><span class="nav-number">9.2.</span> <span class="nav-text">REST API 端到端测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验收测试-–-你的功能工作正常吗"><span class="nav-number">10.</span> <span class="nav-text">验收测试 – 你的功能工作正常吗?</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一个用Python写的验收测试示例"><span class="nav-number">10.0.0.1.</span> <span class="nav-text">一个用Python写的验收测试示例</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#探索测试"><span class="nav-number">11.</span> <span class="nav-text">探索测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试术语的困惑"><span class="nav-number">12.</span> <span class="nav-text">测试术语的困惑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把测试放到部署流水线"><span class="nav-number">13.</span> <span class="nav-text">把测试放到部署流水线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免测试重复"><span class="nav-number">14.</span> <span class="nav-text">避免测试重复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整洁测试代码"><span class="nav-number">15.</span> <span class="nav-text">整洁测试代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">16.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#致谢"><span class="nav-number">17.</span> <span class="nav-text">致谢</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">吴苏苏</span>
+	<div class="powered-by">
+		<i class="fa fa-user-md"></i>
+		<span id="busuanzi_container_site_uv">
+			本站访客数:<span id="busuanzi_value_site_uv"></span>
+		</span>
+	</div>
+<!-- 
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </div></footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("qxl8bFGFEwkjPMC4qCMp5w70-gzGzoHsz", "zMe1BXGVVECNXcPmjoKQztzY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
